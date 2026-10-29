@@ -1,4 +1,4 @@
-# 🏛️ Smart State Welfare Scheme (ஸ்மார்ட் அரசு நலத்திட்டங்கள்)
+# 🏛️ Smart State Welfare Scheme 
 
 > **Modern, Transparent, Rule-Based Welfare Scheme Discovery & Pre-Qualification Platform for Citizens**  
 > *Empowering citizens across Tamil Nadu and All-India to discover welfare schemes, understand eligibility criteria, and find official government application links using verified open datasets.*
