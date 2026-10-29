@@ -1,0 +1,420 @@
+[
+  {
+    "source_id": "TN-SPI-KMUT-2023",
+    "scheme_name": "Kalaignar Magalir Urimai Thittam (KMUT)",
+    "slug": "kalaignar-magalir-urimai-thittam-official",
+    "description": "Pioneering basic rights entitlement scheme by Government of Tamil Nadu recognizing the unpaid labor of women and empowering women heads of families with a monthly cash entitlement of Rs 1,000 directly deposited into their bank accounts.",
+    "department": "Department of Special Programme Implementation, Government of Tamil Nadu",
+    "category": "Women & Child Development",
+    "state_coverage": "Tamil Nadu",
+    "min_age": 21,
+    "max_age": 100,
+    "min_income": 0,
+    "max_income": 250000,
+    "eligible_occupations": [],
+    "official_url": "https://kmut.tn.gov.in",
+    "source_ref": "Government of Tamil Nadu / KMUT Portal",
+    "source_url": "https://kmut.tn.gov.in",
+    "benefits_summary": "Monthly basic income entitlement of Rs 1,000 credited directly into the eligible woman beneficiary's bank account (Rs 12,000/year).",
+    "verification_status": "verified",
+    "is_demonstration": false,
+    "is_active": true,
+    "last_verified_date": "2026-03-22",
+    "criteria": [
+      {
+        "criterion_type": "state",
+        "profile_field": "state",
+        "operator": "==",
+        "target_value": "Tamil Nadu",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Beneficiary family must hold a valid Smart Family Ration Card issued in Tamil Nadu",
+        "failure_reason": "KMUT is an exclusive welfare entitlement for bona fide residents of Tamil Nadu"
+      },
+      {
+        "criterion_type": "gender",
+        "profile_field": "gender",
+        "operator": "==",
+        "target_value": "female",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "The applicant must be a female head or adult female member of the household",
+        "failure_reason": "Applicant must be an eligible female family head"
+      },
+      {
+        "criterion_type": "age",
+        "profile_field": "age",
+        "operator": ">=",
+        "target_value": "21",
+        "is_mandatory": true,
+        "weight": 2.0,
+        "description": "Applicant must have attained 21 years of age",
+        "failure_reason": "Applicant has not attained the minimum qualifying age of 21"
+      },
+      {
+        "criterion_type": "income",
+        "profile_field": "annual_income",
+        "operator": "<=",
+        "target_value": "250000",
+        "is_mandatory": true,
+        "weight": 2.5,
+        "description": "Annual household income must be less than or equal to Rs 2,50,000",
+        "failure_reason": "Annual family income exceeds the statutory threshold of Rs 2,50,000"
+      }
+    ],
+    "documents": [
+      {
+        "document_name": "Tamil Nadu Smart Family Card (Ration Card)",
+        "description": "Smart Card showing household address and listing of family members",
+        "is_mandatory": true,
+        "issuing_authority": "Civil Supplies & Consumer Protection Department, TN"
+      },
+      {
+        "document_name": "Aadhaar Card of Female Applicant",
+        "description": "Individual Aadhaar identity verification",
+        "is_mandatory": true,
+        "issuing_authority": "UIDAI"
+      },
+      {
+        "document_name": "Aadhaar-Linked Bank Account Passbook",
+        "description": "Active bank account seeded with NPCI for DBT credit",
+        "is_mandatory": true,
+        "issuing_authority": "Bank / Post Office"
+      },
+      {
+        "document_name": "TANGEDCO Electricity Consumer Number / Bill",
+        "description": "Domestic electricity service number verifying domestic consumption under 3,600 units/year",
+        "is_mandatory": false,
+        "issuing_authority": "TANGEDCO"
+      }
+    ]
+  },
+  {
+    "source_id": "TN-SW-PUDHUMAIPENN-2022",
+    "scheme_name": "Pudhumai Penn Scheme (Moovalur Ramamirtham Ammaiyar Higher Education Assurance Scheme)",
+    "slug": "pudhumai-penn-higher-education-official",
+    "description": "Tamil Nadu state initiative to curb girl-child school dropouts and incentivize higher education by providing financial assistance of Rs 1,000 per month to female students who studied from Class 6 to 12 in Tamil Nadu Government Schools until they complete their undergraduate degrees, diplomas, or ITI courses.",
+    "department": "Social Welfare and Women Empowerment Department, Government of Tamil Nadu",
+    "category": "Education & Student Grants",
+    "state_coverage": "Tamil Nadu",
+    "min_age": 16,
+    "max_age": 28,
+    "min_income": 0,
+    "max_income": 400000,
+    "eligible_occupations": ["Student"],
+    "official_url": "https://pudhumaipenn.tn.gov.in",
+    "source_ref": "Government of Tamil Nadu Portal / tnsocialwelfare.tn.gov.in",
+    "source_url": "https://pudhumaipenn.tn.gov.in",
+    "benefits_summary": "Direct deposit of Rs 1,000 per month directly into student's personal bank account during the entire duration of the degree/diploma program.",
+    "verification_status": "verified",
+    "is_demonstration": false,
+    "is_active": true,
+    "last_verified_date": "2026-03-18",
+    "criteria": [
+      {
+        "criterion_type": "state",
+        "profile_field": "state",
+        "operator": "==",
+        "target_value": "Tamil Nadu",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Must be an enrolled higher education student in Tamil Nadu",
+        "failure_reason": "Applicant is not studying within Tamil Nadu higher educational institutional network"
+      },
+      {
+        "criterion_type": "gender",
+        "profile_field": "gender",
+        "operator": "==",
+        "target_value": "female",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Scheme is exclusively applicable to female students",
+        "failure_reason": "Pudhumai Penn higher education assurance is reserved for girl students"
+      },
+      {
+        "criterion_type": "student",
+        "profile_field": "is_student",
+        "operator": "==",
+        "target_value": "true",
+        "is_mandatory": true,
+        "weight": 2.5,
+        "description": "Applicant must currently be an active enrolled college or polytechnic student",
+        "failure_reason": "Applicant is not actively enrolled as a full-time student"
+      },
+      {
+        "criterion_type": "age",
+        "profile_field": "age",
+        "operator": "between",
+        "target_value": "[16, 28]",
+        "is_mandatory": false,
+        "weight": 1.5,
+        "description": "Student is within customary undergraduate/post-diploma age range of 16-28",
+        "failure_reason": "Applicant age is outside the 16-28 collegiate education bracket"
+      }
+    ],
+    "documents": [
+      {
+        "document_name": "Government School Study Certificates (Classes 6-12)",
+        "description": "EMIS certificates certifying continuous schooling in TN Government schools from 6th to 12th standard",
+        "is_mandatory": true,
+        "issuing_authority": "School Education Department / Headmaster"
+      },
+      {
+        "document_name": "College Admission Bonafide Certificate",
+        "description": "Proof of enrollment in recognized Degree/Diploma/ITI college course",
+        "is_mandatory": true,
+        "issuing_authority": "College Principal / Registrar"
+      },
+      {
+        "document_name": "Aadhaar Card of Female Student",
+        "description": "Identity and age verification",
+        "is_mandatory": true,
+        "issuing_authority": "UIDAI"
+      },
+      {
+        "document_name": "Student's Individual Bank Account Passbook",
+        "description": "Personal bank account in student's sole name linked to Aadhaar",
+        "is_mandatory": true,
+        "issuing_authority": "Scheduled Bank"
+      }
+    ]
+  },
+  {
+    "source_id": "TN-HEALTH-CMCHIS-2022",
+    "scheme_name": "Chief Minister's Comprehensive Health Insurance Scheme (CMCHIS)",
+    "slug": "tamilnadu-cmchis-health-insurance-official",
+    "description": "Comprehensive statewide healthcare protection providing cashless hospital treatments up to Rs 5 lakh per family per year for 1,090 surgical procedures, 400 medical procedures, and specialized daycare therapies across designated government and private hospitals in Tamil Nadu.",
+    "department": "Health and Family Welfare Department, Government of Tamil Nadu",
+    "category": "Healthcare",
+    "state_coverage": "Tamil Nadu",
+    "min_age": 0,
+    "max_age": 120,
+    "min_income": 0,
+    "max_income": 120000,
+    "eligible_occupations": [],
+    "official_url": "https://www.cmchistn.com",
+    "source_ref": "Government of Tamil Nadu / Tamil Nadu Health Systems Project (TNHSP)",
+    "source_url": "https://www.cmchistn.com",
+    "benefits_summary": "Cashless hospitalization and critical therapy coverage up to Rs 5,00,000 per family per year in over 1,500 empaneled hospitals across Tamil Nadu.",
+    "verification_status": "verified",
+    "is_demonstration": false,
+    "is_active": true,
+    "last_verified_date": "2026-03-24",
+    "criteria": [
+      {
+        "criterion_type": "state",
+        "profile_field": "state",
+        "operator": "==",
+        "target_value": "Tamil Nadu",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Applicant family must be domiciled in Tamil Nadu",
+        "failure_reason": "CMCHIS coverage requires domicile within Tamil Nadu"
+      },
+      {
+        "criterion_type": "income",
+        "profile_field": "annual_income",
+        "operator": "<=",
+        "target_value": "120000",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Annual household income must not exceed Rs 1,20,000 as certified by revenue authorities",
+        "failure_reason": "Household income exceeds the subsidized CMCHIS threshold of Rs 1,20,000"
+      }
+    ],
+    "documents": [
+      {
+        "document_name": "Smart Family Ration Card",
+        "description": "Family card showing members and domicile",
+        "is_mandatory": true,
+        "issuing_authority": "Civil Supplies Department, TN"
+      },
+      {
+        "document_name": "Income Certificate from Village Administrative Officer (VAO) / Tahsildar",
+        "description": "Proof of annual income under Rs 1,20,000",
+        "is_mandatory": true,
+        "issuing_authority": "Revenue Department"
+      },
+      {
+        "document_name": "CMCHIS Biometric Health Card",
+        "description": "Smart health card issued at District Kiosks",
+        "is_mandatory": false,
+        "issuing_authority": "District Collectorate / TNHSP"
+      }
+    ]
+  },
+  {
+    "source_id": "TN-HEALTH-MRMBS-2022",
+    "scheme_name": "Dr. Muthulakshmi Reddy Maternity Benefit Scheme (MRMBS)",
+    "slug": "muthulakshmi-reddy-maternity-benefit-official",
+    "description": "Comprehensive conditional cash transfer and nutritional support scheme to prevent maternal and infant mortality by providing Rs 18,000 financial support and 2 Amma Nutrition Kits worth Rs 4,000 to pregnant women from low-income families delivering in government health facilities.",
+    "department": "Public Health and Preventive Medicine, Health and Family Welfare Department, TN",
+    "category": "Healthcare & Maternity",
+    "state_coverage": "Tamil Nadu",
+    "min_age": 19,
+    "max_age": 45,
+    "min_income": 0,
+    "max_income": 150000,
+    "eligible_occupations": [],
+    "official_url": "https://picme.tn.gov.in",
+    "source_ref": "Government of Tamil Nadu / PICME Portal",
+    "source_url": "https://picme.tn.gov.in",
+    "benefits_summary": "Financial support of Rs 18,000 disbursed across 5 milestones + 2 Amma Nutrition Kits (iron syrup, nutrition mix, dates, ghee, towel).",
+    "verification_status": "verified",
+    "is_demonstration": false,
+    "is_active": true,
+    "last_verified_date": "2026-03-20",
+    "criteria": [
+      {
+        "criterion_type": "state",
+        "profile_field": "state",
+        "operator": "==",
+        "target_value": "Tamil Nadu",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Beneficiary must be a resident of Tamil Nadu",
+        "failure_reason": "Applicant must reside in Tamil Nadu"
+      },
+      {
+        "criterion_type": "gender",
+        "profile_field": "gender",
+        "operator": "==",
+        "target_value": "female",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Beneficiary must be a pregnant female citizen",
+        "failure_reason": "Scheme is specifically designed for expectant mothers"
+      },
+      {
+        "criterion_type": "age",
+        "profile_field": "age",
+        "operator": ">=",
+        "target_value": "19",
+        "is_mandatory": true,
+        "weight": 2.0,
+        "description": "Mother must be at least 19 years old at time of registration",
+        "failure_reason": "Applicant has not attained the legal minimum maternity benefit age of 19"
+      },
+      {
+        "criterion_type": "income",
+        "profile_field": "annual_income",
+        "operator": "<=",
+        "target_value": "150000",
+        "is_mandatory": false,
+        "weight": 2.0,
+        "description": "Priority for low-income and BPL pregnant women",
+        "failure_reason": "Household income is above the priority maternity assistance bracket"
+      }
+    ],
+    "documents": [
+      {
+        "document_name": "PICME (Pregnancy and Infant Cohort Monitoring and Evaluation) 12-Digit RCH ID",
+        "description": "Mandatory ante-natal registration recorded by Village Health Nurse (VHN)",
+        "is_mandatory": true,
+        "issuing_authority": "Directorate of Public Health & Preventive Medicine, TN"
+      },
+      {
+        "document_name": "Mother and Child Protection (MCP) Card",
+        "description": "Record of mandatory ANC checkups and immunizations",
+        "is_mandatory": true,
+        "issuing_authority": "Primary Health Centre (PHC) / Government Hospital"
+      },
+      {
+        "document_name": "Aadhaar Card and Bank Passbook",
+        "description": "Aadhaar-linked account for installment disbursement",
+        "is_mandatory": true,
+        "issuing_authority": "Bank"
+      }
+    ]
+  },
+  {
+    "source_id": "TN-REV-UZHAVAR-2023",
+    "scheme_name": "Tamil Nadu Uzhavar Pathukappu Thittam (Farmers' Social Security Scheme)",
+    "slug": "tamil-nadu-uzhavar-pathukappu-thittam-official",
+    "description": "Comprehensive statewide social security scheme enacted through the Tamil Nadu Agricultural Labourers - Farmers (Social Security and Welfare) Act, extending educational scholarships, marriage assistance, maternity benefits, disability aid, accident relief, and monthly old-age pensions to landless agricultural laborers, small farmers, and tenant cultivators in Tamil Nadu.",
+    "department": "Revenue and Disaster Management Department, Government of Tamil Nadu",
+    "category": "Agriculture & Farmers",
+    "state_coverage": "Tamil Nadu",
+    "min_age": 18,
+    "max_age": 65,
+    "min_income": 0,
+    "max_income": 180000,
+    "eligible_occupations": ["Farmer", "Agricultural Worker", "Cultivator", "Farm Laborer"],
+    "official_url": "https://www.tn.gov.in",
+    "source_ref": "Government of Tamil Nadu Portal / Commissioner of Land Administration",
+    "source_url": "https://www.tn.gov.in/scheme/data_view/68541",
+    "benefits_summary": "Extensive social security including monthly old-age pension (Rs 1,000/mo), accident grant of Rs 1,00,000, education grants up to Rs 6,000/yr for children, and marriage aid up to Rs 10,000.",
+    "verification_status": "verified",
+    "is_demonstration": false,
+    "is_active": true,
+    "last_verified_date": "2026-03-12",
+    "criteria": [
+      {
+        "criterion_type": "state",
+        "profile_field": "state",
+        "operator": "==",
+        "target_value": "Tamil Nadu",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Must be an agricultural worker or farmer domiciled in Tamil Nadu",
+        "failure_reason": "Applicant does not reside within Tamil Nadu jurisdiction"
+      },
+      {
+        "criterion_type": "occupation",
+        "profile_field": "occupation",
+        "operator": "in",
+        "target_value": "[\"Farmer\", \"Agricultural Worker\", \"Cultivator\", \"Farm Laborer\"]",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Primary livelihood must be agriculture, farm labor, or tenant farming",
+        "failure_reason": "Applicant occupation is not registered as an agricultural cultivator or farm laborer"
+      },
+      {
+        "criterion_type": "age",
+        "profile_field": "age",
+        "operator": "between",
+        "target_value": "[18, 65]",
+        "is_mandatory": true,
+        "weight": 1.5,
+        "description": "Member must be between 18 and 65 years of age during active enrollment",
+        "failure_reason": "Applicant is outside the 18-65 active member age bracket"
+      },
+      {
+        "criterion_type": "income",
+        "profile_field": "annual_income",
+        "operator": "<=",
+        "target_value": "180000",
+        "is_mandatory": false,
+        "weight": 2.0,
+        "description": "Priority for small landholding or landless agricultural households under Rs 1,80,000",
+        "failure_reason": "Household income is above the priority agrarian welfare threshold"
+      }
+    ],
+    "documents": [
+      {
+        "document_name": "Uzhavar Pathukappu Thittam Membership Identity Card",
+        "description": "Official welfare board card issued by Special Tahsildar (Social Security Schemes)",
+        "is_mandatory": true,
+        "issuing_authority": "Revenue Department, TN"
+      },
+      {
+        "document_name": "Smart Family Ration Card",
+        "description": "Proof of family membership and rural address",
+        "is_mandatory": true,
+        "issuing_authority": "Civil Supplies Department, TN"
+      },
+      {
+        "document_name": "VAO Agricultural Laborer Certificate / Chitta / Adangal",
+        "description": "Certification by Village Administrative Officer verifying agricultural livelihood",
+        "is_mandatory": true,
+        "issuing_authority": "Village Administrative Officer (VAO)"
+      },
+      {
+        "document_name": "Bank Account Passbook",
+        "description": "Savings bank passbook for direct benefit transfers",
+        "is_mandatory": true,
+        "issuing_authority": "Scheduled Bank"
+      }
+    ]
+  }
+]

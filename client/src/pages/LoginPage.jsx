@@ -1,203 +1,212 @@
-// client/src/pages/LoginPage.jsx
-import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Sprout, LogIn, AlertCircle, Sparkles, Lock, Mail, ArrowRight, ShieldCheck, GraduationCap } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import {
+  ShieldCheck,
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  ArrowRight,
+  AlertCircle,
+} from 'lucide-react';
 
 export default function LoginPage() {
+  const { user, login } = useAuth();
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const { login, switchPersona } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
+  // Redirect if user is already authenticated
+  useEffect(() => {
+    if (user) {
+      if (user.role === 'admin') {
+        navigate('/admin', { replace: true });
+      } else {
+        navigate('/dashboard', { replace: true });
+      }
+    }
+  }, [user, navigate]);
 
+  // Handle direct form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !password) {
-      setError('Please provide your email and password.');
+    setErrorMessage('');
+
+    if (!email.trim() || !password) {
+      setErrorMessage('Please provide both email address and password.');
       return;
     }
 
+    setLoading(true);
     try {
-      setLoading(true);
-      setError('');
-      const res = await login(email, password);
-      if (res && res.success) {
-        if (res.user.role === 'ADMIN') {
-          navigate('/admin');
-        } else if (res.user.role === 'FACULTY') {
-          navigate('/faculty');
-        } else if (res.user.isOnboarded === false) {
-          navigate('/onboarding');
-        } else {
-          navigate('/dashboard');
-        }
+      const loggedUser = await login(email.trim(), password);
+      if (loggedUser.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
       }
     } catch (err) {
-      setError(err.response?.data?.message || err.message || 'Invalid email or password.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleQuickPersona = async (personaId) => {
-    try {
-      setLoading(true);
-      setError('');
-      const switchedUser = await switchPersona(personaId);
-      if (switchedUser) {
-        if (switchedUser.role === 'ADMIN') {
-          navigate('/admin');
-        } else if (switchedUser.role === 'FACULTY') {
-          navigate('/faculty');
-        } else {
-          navigate('/dashboard');
-        }
-      }
-    } catch (err) {
-      setError('Could not switch demo persona.');
+      setErrorMessage(
+        err.response?.data?.message || 'Invalid email or password. Please try again.'
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center px-4 py-12 bg-slate-50">
-      <div className="max-w-md w-full space-y-6">
-        
-        {/* Brand Header */}
-        <div className="text-center">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center mx-auto mb-3 shadow-lg shadow-emerald-500/20">
-            <Sprout className="w-8 h-8 stroke-[2.2]" />
+    <div className="min-h-screen bg-brand-bg flex flex-col justify-between py-6 px-4 sm:px-6 lg:px-8 selection:bg-brand-lavender selection:text-brand-purple">
+      {/* Top Navigation Bar */}
+      <header className="max-w-5xl mx-auto w-full flex items-center justify-between py-3">
+        <Link to="/" className="flex items-center space-x-3 group">
+          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-brand-purple to-brand-purpleDark flex items-center justify-center text-white shadow-lg shadow-brand-purple/25 group-hover:scale-105 transition-transform duration-200">
+            <ShieldCheck className="w-6 h-6" />
           </div>
-          <h2 className="font-display text-3xl font-black text-slate-900 tracking-tight">
-            Welcome to Growth<span className="text-emerald-600">Mind</span>
-          </h2>
-          <p className="text-xs text-slate-500 mt-1 font-medium">
-            “Not Just a Score. A Growth Journey.”
-          </p>
+          <div>
+            <div className="font-extrabold text-xl tracking-tight text-brand-navy">
+              Smart<span className="text-brand-purple">Welfare</span>
+            </div>
+            <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              Eligibility Prediction Engine
+            </div>
+          </div>
+        </Link>
+
+        <div className="flex items-center space-x-3 text-xs font-semibold">
+          <span className="text-slate-500 hidden sm:inline">New to SmartWelfare?</span>
+          <Link
+            to="/register"
+            className="px-4 py-2.5 rounded-xl bg-white border border-slate-200/90 text-brand-purple hover:bg-brand-lavender/50 hover:border-brand-purple/30 transition shadow-2xs font-bold"
+          >
+            Create Account
+          </Link>
         </div>
+      </header>
 
-        {/* 1-Click Judge Quick Login Personas */}
-        <div className="bg-slate-900 text-white rounded-2xl p-4 shadow-md border border-slate-800 space-y-2.5">
-          <div className="flex items-center justify-between text-xs font-bold text-amber-400">
-            <span className="flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-              1-Click Judge Presets:
-            </span>
-            <span className="text-[10px] text-slate-400 font-normal">Instant Authentication</span>
+      {/* Main Centered Content */}
+      <main className="max-w-md w-full mx-auto my-auto space-y-6 py-4">
+        {/* Centered White Login Card */}
+        <div className="bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-9 shadow-xl shadow-slate-200/50 relative overflow-hidden">
+          {/* Subtle Accent Glow Header */}
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-purple via-brand-purpleLight to-brand-purple" />
+
+          {/* Logo & Headings */}
+          <div className="text-center space-y-2 mb-7">
+            <div className="w-14 h-14 rounded-2xl bg-brand-lavender text-brand-purple mx-auto flex items-center justify-center shadow-inner border border-brand-lavenderDark/50 mb-3">
+              <ShieldCheck className="w-8 h-8" />
+            </div>
+            <h1 className="text-2xl font-black text-brand-navy tracking-tight">
+              Welcome to SmartWelfare
+            </h1>
+            <p className="text-xs text-slate-500 max-w-xs mx-auto leading-relaxed">
+              Discover government welfare schemes you may qualify for through rule-based matching.
+            </p>
           </div>
-          
-          <div className="grid grid-cols-2 gap-2 text-xs">
-            <button
-              type="button"
-              onClick={() => handleQuickPersona('usr-tharun')}
-              className="p-2.5 rounded-xl bg-slate-800 hover:bg-emerald-600 text-left transition-all border border-slate-700 hover:border-emerald-500 group"
-            >
-              <span className="font-bold text-white block truncate group-hover:text-white">🌱 Tharun</span>
-              <span className="text-[10px] text-emerald-400 block truncate group-hover:text-emerald-100">Late Bloomer (+28%)</span>
-            </button>
 
-            <button
-              type="button"
-              onClick={() => handleQuickPersona('usr-aadhya')}
-              className="p-2.5 rounded-xl bg-slate-800 hover:bg-purple-600 text-left transition-all border border-slate-700 hover:border-purple-500 group"
-            >
-              <span className="font-bold text-white block truncate group-hover:text-white">👑 Aadhya</span>
-              <span className="text-[10px] text-purple-400 block truncate group-hover:text-purple-100">Top Performer (92%)</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => handleQuickPersona('usr-sharma')}
-              className="p-2.5 rounded-xl bg-slate-800 hover:bg-indigo-600 text-left transition-all border border-slate-700 hover:border-indigo-500 group"
-            >
-              <span className="font-bold text-white block truncate group-hover:text-white">🎓 Prof. Sharma</span>
-              <span className="text-[10px] text-indigo-300 block truncate group-hover:text-indigo-100">Faculty Command</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => handleQuickPersona('usr-admin')}
-              className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-left transition-all border border-slate-700 group"
-            >
-              <span className="font-bold text-white block truncate">🛡 System Admin</span>
-              <span className="text-[10px] text-slate-400 block truncate">Platform Admin</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Real Sign In Form */}
-        <div className="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-xs space-y-5">
-          {error && (
-            <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-start gap-2.5">
-              <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
-              <span>{error}</span>
+          {/* Error Banner */}
+          {errorMessage && (
+            <div className="mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 text-xs flex items-center space-x-2.5">
+              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+              <span>{errorMessage}</span>
             </div>
           )}
 
+          {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Email Field */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
+              <label
+                htmlFor="email"
+                className="block text-xs font-bold text-slate-700 mb-1.5"
+              >
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5 pointer-events-none" />
                 <input
+                  id="email"
                   type="email"
+                  required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="e.g. tharun.growth@mind.edu"
-                  className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50/50"
-                  required
+                  placeholder="name@example.com"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 text-xs text-slate-900 placeholder-slate-400 outline-hidden transition bg-slate-50/50 focus:bg-white"
                 />
               </div>
             </div>
 
+            {/* Password Field */}
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                  Password
-                </label>
-                <Link to="/forgot-password" className="text-[11px] font-semibold text-emerald-600 hover:underline">
-                  Forgot Password?
-                </Link>
-              </div>
+              <label
+                htmlFor="password"
+                className="block text-xs font-bold text-slate-700 mb-1.5"
+              >
+                Password
+              </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5 pointer-events-none" />
                 <input
-                  type="password"
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50/50"
-                  required
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20 text-xs text-slate-900 placeholder-slate-400 outline-hidden transition bg-slate-50/50 focus:bg-white"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-3 text-slate-400 hover:text-slate-600 transition"
+                  aria-label="Toggle password visibility"
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
               </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-md shadow-emerald-600/20 disabled:opacity-50 transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <LogIn className="w-4 h-4" />
-              {loading ? 'Authenticating...' : 'Sign In to GrowthMind'}
-            </button>
+            {/* Primary Action Button */}
+            <div className="pt-2">
+              {/* Sign In Button */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-brand-purple to-brand-purpleDark hover:from-brand-purpleDark hover:to-primary-800 text-white font-bold text-xs shadow-md shadow-brand-purple/30 hover:shadow-lg transition-all flex items-center justify-center space-x-2"
+              >
+                <span>{loading ? 'Signing in...' : 'Sign In'}</span>
+                {!loading && <ArrowRight className="w-4 h-4" />}
+              </button>
+            </div>
           </form>
 
-          <div className="pt-2 text-center text-xs text-slate-500 border-t border-slate-100">
-            Don't have an account yet?{' '}
-            <Link to="/register" className="text-emerald-700 font-extrabold hover:underline">
-              Create Student Account
+          {/* Card Footer Link */}
+          <div className="mt-6 pt-5 border-t border-slate-100 text-center">
+            <span className="text-xs text-slate-500">Don't have an account? </span>
+            <Link
+              to="/register"
+              className="text-xs font-bold text-brand-purple hover:underline"
+            >
+              Create a Citizen Account
             </Link>
           </div>
         </div>
+      </main>
 
-      </div>
+      {/* Footer Legal Disclaimer */}
+      <footer className="text-center text-[11px] text-slate-400 max-w-xl mx-auto py-3 leading-relaxed">
+        <p>
+          SmartWelfare is an academic decision-support & eligibility prediction prototype. All matching evaluations are preliminary advisory indicators subject to official ministerial verification.
+        </p>
+      </footer>
     </div>
   );
 }

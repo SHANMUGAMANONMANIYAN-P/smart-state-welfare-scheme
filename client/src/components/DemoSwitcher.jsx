@@ -1,86 +1,148 @@
-// client/src/components/DemoSwitcher.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useGrowth } from '../context/GrowthContext';
-import { Sparkles, RotateCcw, Zap, GraduationCap, ShieldAlert, Award, TrendingUp } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Sparkles, CheckCircle, LogOut, X, Users, ChevronUp } from 'lucide-react';
 
-export const DemoSwitcher = () => {
-  const { activePersonaId, switchPersona, allPersonas } = useAuth();
-  const { openQuiz, resetDemo } = useGrowth();
+export function DemoSwitcher() {
+  const { user, loginAsDemoUser, logout, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const [loadingPersona, setLoadingPersona] = useState(null);
+
+  const personas = [
+    {
+      id: 'farmer',
+      title: 'Ramesh Kumar',
+      role: 'Rural Farmer (₹1.2L income)',
+      icon: '👨‍🌾',
+      badge: 'Matches PM-Kisan & Housing',
+    },
+    {
+      id: 'student',
+      title: 'Ananya Sharma',
+      role: 'Urban Student (₹1.8L income)',
+      icon: '🎓',
+      badge: 'Matches Education Grant',
+    },
+    {
+      id: 'senior',
+      title: 'Suresh Patel',
+      role: 'Senior Citizen (₹85k income)',
+      icon: '👴',
+      badge: 'Matches Pension & Healthcare',
+    },
+    {
+      id: 'admin',
+      title: 'Administrator',
+      role: 'admin@welfare.gov.in',
+      icon: '🛡️',
+      badge: 'Full Scheme & Rules Management',
+    },
+  ];
+
+  const handleSwitch = async (personaId) => {
+    try {
+      setLoadingPersona(personaId);
+      await loginAsDemoUser(personaId);
+      if (personaId === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
+      }
+      setIsOpen(false);
+    } catch (err) {
+      console.error('Demo switch error:', err);
+    } finally {
+      setLoadingPersona(null);
+    }
+  };
 
   return (
-    <div className="bg-slate-900 text-slate-100 border-b border-slate-800 py-2.5 px-4 sticky top-0 z-50 shadow-md">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs">
-        
-        {/* Left: Hackathon Persona Switcher Tag */}
-        <div className="flex items-center gap-2 font-medium shrink-0">
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span className="text-slate-300 uppercase tracking-wider font-semibold text-[11px] flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            1-Click Demo Switcher:
-          </span>
-        </div>
+    <div className="fixed bottom-4 right-4 z-50">
+      {isOpen ? (
+        <div className="bg-white rounded-2xl shadow-2xl border border-slate-200/90 p-4 w-80 animate-in fade-in slide-in-from-bottom-2 text-slate-800">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div className="flex items-center space-x-2">
+              <span className="p-1.5 rounded-xl bg-brand-lavender text-brand-purple border border-brand-purple/20">
+                <Users className="w-4 h-4" />
+              </span>
+              <div>
+                <h4 className="text-xs font-bold text-brand-navy leading-tight">Evaluator Personas</h4>
+                <p className="text-[10px] text-slate-400">1-Click Evaluation Switcher</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-1 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition"
+              title="Close"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
 
-        {/* Middle: Persona Switch Tabs */}
-        <div className="flex items-center gap-1.5 overflow-x-auto max-w-full pb-1 md:pb-0 scrollbar-none">
-          {allPersonas.map((p) => {
-            const isActive = activePersonaId === p.id;
-            return (
+          <div className="mt-3 space-y-2">
+            {personas.map((p) => {
+              const isCurrent =
+                user &&
+                ((p.id === 'admin' && user.role === 'admin') ||
+                  (p.id === 'farmer' && user.email === 'ramesh.kumar@example.com') ||
+                  (p.id === 'student' && user.email === 'ananya.sharma@example.com') ||
+                  (p.id === 'senior' && user.email === 'suresh.patel@example.com'));
+
+              return (
+                <button
+                  key={p.id}
+                  onClick={() => handleSwitch(p.id)}
+                  disabled={loadingPersona !== null}
+                  className={`w-full p-2.5 rounded-xl text-left text-xs transition border flex items-center justify-between ${
+                    isCurrent
+                      ? 'bg-brand-lavender/60 border-brand-purple/50 text-brand-purple font-semibold shadow-2xs'
+                      : 'bg-slate-50/80 hover:bg-slate-100/80 border-slate-200 text-slate-700'
+                  }`}
+                >
+                  <div className="flex items-center space-x-2.5">
+                    <span className="text-base">{p.icon}</span>
+                    <div>
+                      <div className="font-bold text-brand-navy leading-tight">{p.title}</div>
+                      <div className="text-[10px] text-slate-500">{p.role}</div>
+                      <div className="text-[9px] text-brand-purple font-medium mt-0.5">{p.badge}</div>
+                    </div>
+                  </div>
+                  {isCurrent && <CheckCircle className="w-4 h-4 text-brand-purple shrink-0 ml-2" />}
+                </button>
+              );
+            })}
+          </div>
+
+          {isAuthenticated && (
+            <div className="mt-3 pt-2.5 border-t border-slate-100 flex justify-end">
               <button
-                key={p.id}
-                onClick={() => switchPersona(p.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-medium transition-all text-xs whitespace-nowrap ${
-                  isActive
-                    ? 'bg-emerald-500 text-white shadow-sm ring-2 ring-emerald-400/40 font-semibold'
-                    : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700/60'
-                }`}
+                onClick={() => {
+                  logout();
+                  navigate('/');
+                  setIsOpen(false);
+                }}
+                className="text-[11px] font-bold text-rose-600 hover:text-rose-700 hover:bg-rose-50 px-2.5 py-1 rounded-lg transition flex items-center"
               >
-                <img
-                  src={p.avatar}
-                  alt={p.name}
-                  className="w-4 h-4 rounded-full object-cover border border-white/40"
-                />
-                <span>{p.name}</span>
-                <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                  isActive ? 'bg-emerald-700 text-white' : 'bg-slate-900 text-slate-400'
-                }`}>
-                  {(p.id === 'usr-tharun' || p.name === 'Tharun') && '🌱 Late Bloomer (+28%)'}
-                  {(p.id === 'usr-aadhya' || p.name === 'Aadhya') && '👑 Top Performer (92%)'}
-                  {(p.id === 'usr-rohan' || p.name === 'Rohan') && '📈 Developing (61%)'}
-                  {(p.id === 'usr-priya' || p.name === 'Priya') && '🔥 Consistent (78%)'}
-                  {(p.id === 'usr-sharma' || p.name === 'Prof. Sharma') && '🎓 Faculty View'}
-                  {(p.id === 'usr-admin' || p.name === 'System Admin') && '🛡 Admin View'}
-                </span>
+                <LogOut className="w-3.5 h-3.5 mr-1" />
+                Sign Out / Reset
               </button>
-            );
-          })}
+            </div>
+          )}
         </div>
-
-        {/* Right: Quick Interactive Actions */}
-        <div className="flex items-center gap-2 shrink-0">
-          <button
-            onClick={() => openQuiz('Functions')}
-            className="flex items-center gap-1 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-semibold px-3 py-1.5 rounded-full text-xs shadow-sm transition-all hover:scale-105 active:scale-95"
-            title="Take a live 3-question quiz on Functions to watch the dynamic path recalculate in real-time"
-          >
-            <Zap className="w-3.5 h-3.5 fill-current text-amber-200" />
-            <span>⚡ Test Live Quiz</span>
-          </button>
-
-          <button
-            onClick={resetDemo}
-            className="flex items-center gap-1 text-slate-400 hover:text-slate-200 bg-slate-800/50 hover:bg-slate-800 px-2.5 py-1.5 rounded-full text-xs border border-slate-700/50 transition-colors"
-            title="Reset student scores to demo defaults"
-          >
-            <RotateCcw className="w-3 h-3" />
-            <span className="hidden sm:inline">Reset</span>
-          </button>
-        </div>
-
-      </div>
+      ) : (
+        <button
+          onClick={() => setIsOpen(true)}
+          className="bg-brand-navy hover:bg-brand-navyLight text-white text-xs font-semibold py-2 px-3.5 rounded-full shadow-lg border border-brand-purple/30 flex items-center space-x-2 transition-all hover:scale-105"
+          title="Open Evaluator Test Personas"
+        >
+          <Sparkles className="w-3.5 h-3.5 text-brand-purpleLight" />
+          <span className="text-[11px] font-bold text-white tracking-wide">Judge Personas</span>
+          <ChevronUp className="w-3.5 h-3.5 text-slate-400" />
+        </button>
+      )}
     </div>
   );
-};
+}
+
+export default DemoSwitcher;

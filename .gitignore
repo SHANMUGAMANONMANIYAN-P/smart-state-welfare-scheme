@@ -32,3 +32,13 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# Databases & local runtime data
+*.sqlite*
+*.db
+database/*.sqlite*
+welfare_local.sqlite*
+
+# Unrelated workspace folders
+eduadapt-ai/
+

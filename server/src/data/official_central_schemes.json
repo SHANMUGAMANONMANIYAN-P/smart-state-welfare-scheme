@@ -1,0 +1,346 @@
+[
+  {
+    "source_id": "GOI-AGRI-PMKISAN-2026",
+    "scheme_name": "PM Kisan Samman Nidhi",
+    "slug": "pm-kisan-samman-nidhi-official",
+    "description": "Income support scheme by the Government of India providing Rs 6,000 per year in three equal four-monthly installments to all landholding farmer families across India directly into their verified bank accounts via Direct Benefit Transfer (DBT).",
+    "department": "Department of Agriculture and Farmers Welfare, Ministry of Agriculture & Farmers Welfare",
+    "category": "Agriculture & Farmers",
+    "state_coverage": "All-India",
+    "min_age": 18,
+    "max_age": 100,
+    "min_income": 0,
+    "max_income": 250000,
+    "eligible_occupations": ["Farmer", "Agricultural Worker", "Cultivator"],
+    "official_url": "https://pmkisan.gov.in",
+    "source_ref": "data.gov.in / PM-KISAN Portal",
+    "source_url": "https://pmkisan.gov.in",
+    "benefits_summary": "Direct financial assistance of Rs 6,000 per annum paid in 3 equal installments of Rs 2,000 each via DBT.",
+    "verification_status": "verified",
+    "is_demonstration": false,
+    "is_active": true,
+    "last_verified_date": "2026-03-15",
+    "criteria": [
+      {
+        "criterion_type": "occupation",
+        "profile_field": "occupation",
+        "operator": "in",
+        "target_value": "[\"Farmer\", \"Agricultural Worker\", \"Cultivator\"]",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Beneficiary must be a small or marginal farmer family holding cultivable agricultural land",
+        "failure_reason": "Applicant occupation is not registered as an agricultural farmer or cultivator"
+      },
+      {
+        "criterion_type": "age",
+        "profile_field": "age",
+        "operator": ">=",
+        "target_value": "18",
+        "is_mandatory": true,
+        "weight": 1.0,
+        "description": "Applicant must be an adult aged 18 or above",
+        "failure_reason": "Applicant is under the legal adult age of 18"
+      },
+      {
+        "criterion_type": "income",
+        "profile_field": "annual_income",
+        "operator": "<=",
+        "target_value": "250000",
+        "is_mandatory": false,
+        "weight": 2.0,
+        "description": "Targeted priority for small and marginal farm holdings under Rs 2,50,000 annual income",
+        "failure_reason": "Household income is above the priority smallholder income ceiling"
+      }
+    ],
+    "documents": [
+      {
+        "document_name": "Aadhaar Card (linked to Mobile & Bank)",
+        "description": "Mandatory unique identification for DBT payment authentication",
+        "is_mandatory": true,
+        "issuing_authority": "UIDAI"
+      },
+      {
+        "document_name": "Land Record Documents (Khatauni / Patta / RoR)",
+        "description": "Certified land record evidencing agricultural landholding title",
+        "is_mandatory": true,
+        "issuing_authority": "State Revenue Department / Tehsildar"
+      },
+      {
+        "document_name": "Bank Passbook with Active NPCI Aadhaar Seeding",
+        "description": "Bank account statement showing IFSC code and active account status",
+        "is_mandatory": true,
+        "issuing_authority": "Scheduled Commercial Bank / Regional Rural Bank"
+      }
+    ]
+  },
+  {
+    "source_id": "GOI-HEALTH-PMJAY-2026",
+    "scheme_name": "Ayushman Bharat - Pradhan Mantri Jan Arogya Yojana (PM-JAY)",
+    "slug": "ayushman-bharat-pm-jay-official",
+    "description": "The world's largest health assurance scheme providing a health cover of Rs 5 lakh per family per year for secondary and tertiary care hospitalization to over 12 crore vulnerable and low-income families identified through deprivation criteria.",
+    "department": "National Health Authority (NHA), Ministry of Health and Family Welfare",
+    "category": "Healthcare",
+    "state_coverage": "All-India",
+    "min_age": 0,
+    "max_age": 120,
+    "min_income": 0,
+    "max_income": 250000,
+    "eligible_occupations": [],
+    "official_url": "https://pmjay.gov.in",
+    "source_ref": "data.gov.in / National Health Authority",
+    "source_url": "https://nha.gov.in",
+    "benefits_summary": "Cashless in-patient health cover up to Rs 5,00,000 per family per year for 1,949 medical and surgical procedures.",
+    "verification_status": "verified",
+    "is_demonstration": false,
+    "is_active": true,
+    "last_verified_date": "2026-03-20",
+    "criteria": [
+      {
+        "criterion_type": "income",
+        "profile_field": "annual_income",
+        "operator": "<=",
+        "target_value": "250000",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Household income must align with low-income socioeconomic classification (below Rs 2,50,000)",
+        "failure_reason": "Household income exceeds eligibility criteria for subsidized universal health protection"
+      },
+      {
+        "criterion_type": "housing_status",
+        "profile_field": "housing_status",
+        "operator": "in",
+        "target_value": "[\"kutcha_house\", \"rented\", \"homeless\"]",
+        "is_mandatory": false,
+        "weight": 2.0,
+        "description": "Priority deprivation criteria including kutcha housing or tenant shelter",
+        "failure_reason": "Applicant household owns a permanent pucca structure"
+      }
+    ],
+    "documents": [
+      {
+        "document_name": "Ayushman Card / Ration Card",
+        "description": "Eligible ration card or state health card showing family composition",
+        "is_mandatory": true,
+        "issuing_authority": "State Food & Civil Supplies Department / NHA"
+      },
+      {
+        "document_name": "Government Photo Identity Proof (Aadhaar / Voter ID)",
+        "description": "Proof of identity of the undergoing patient",
+        "is_mandatory": true,
+        "issuing_authority": "Government of India"
+      }
+    ]
+  },
+  {
+    "source_id": "GOI-RURAL-PMAYG-2026",
+    "scheme_name": "Pradhan Mantri Awas Yojana - Gramin (PMAY-G)",
+    "slug": "pradhan-mantri-awas-yojana-gramin-official",
+    "description": "Flagship social housing program to provide financial assistance to rural houseless families and those living in kutcha and dilapidated houses for construction of pucca houses with basic amenities like toilet, LPG, electricity, and tap water.",
+    "department": "Ministry of Rural Development",
+    "category": "Housing & Shelter",
+    "state_coverage": "All-India",
+    "min_age": 18,
+    "max_age": 100,
+    "min_income": 0,
+    "max_income": 180000,
+    "eligible_occupations": [],
+    "official_url": "https://pmayg.nic.in",
+    "source_ref": "data.gov.in / Ministry of Rural Development",
+    "source_url": "https://pmayg.nic.in",
+    "benefits_summary": "Financial grant of Rs 1,20,000 in plain areas and Rs 1,30,000 in hilly/difficult areas, plus 90-95 days of unskilled labor wage under MGNREGS.",
+    "verification_status": "verified",
+    "is_demonstration": false,
+    "is_active": true,
+    "last_verified_date": "2026-03-10",
+    "criteria": [
+      {
+        "criterion_type": "area_type",
+        "profile_field": "area_type",
+        "operator": "==",
+        "target_value": "rural",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Applicant must reside in a designated rural panchayat zone",
+        "failure_reason": "PMAY-Gramin is strictly restricted to rural panchayat administrative territories"
+      },
+      {
+        "criterion_type": "housing_status",
+        "profile_field": "housing_status",
+        "operator": "in",
+        "target_value": "[\"kutcha_house\", \"homeless\"]",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Must currently live in a kutcha house or be houseless with zero pucca dwellings",
+        "failure_reason": "Household already owns a permanent pucca house"
+      },
+      {
+        "criterion_type": "income",
+        "profile_field": "annual_income",
+        "operator": "<=",
+        "target_value": "180000",
+        "is_mandatory": false,
+        "weight": 2.0,
+        "description": "Annual household income must be within Rs 1,80,000",
+        "failure_reason": "Household income exceeds rural housing deprivation ceiling"
+      }
+    ],
+    "documents": [
+      {
+        "document_name": "Gram Panchayat Residence & Houseless Affidavit",
+        "description": "Verification of living in a kutcha house issued by Gram Panchayat",
+        "is_mandatory": true,
+        "issuing_authority": "Gram Panchayat Secretary / Village Head"
+      },
+      {
+        "document_name": "Aadhaar Card of Head and Family Members",
+        "description": "Biometric Aadhaar numbers for geo-tagged house tracking",
+        "is_mandatory": true,
+        "issuing_authority": "UIDAI"
+      },
+      {
+        "document_name": "Bank Passbook Linked to MGNREGA Job Card",
+        "description": "Account details for phased direct subsidy transfer upon stage verification",
+        "is_mandatory": true,
+        "issuing_authority": "Bank / Post Office"
+      }
+    ]
+  },
+  {
+    "source_id": "GOI-PETRO-PMUY-2026",
+    "scheme_name": "Pradhan Mantri Ujjwala Yojana 2.0 (PMUY)",
+    "slug": "pradhan-mantri-ujjwala-yojana-official",
+    "description": "Government program by Ministry of Petroleum and Natural Gas to provide deposit-free LPG connections to women from poor and vulnerable households without clean cooking fuels.",
+    "department": "Ministry of Petroleum and Natural Gas",
+    "category": "Energy & Social Welfare",
+    "state_coverage": "All-India",
+    "min_age": 18,
+    "max_age": 100,
+    "min_income": 0,
+    "max_income": 150000,
+    "eligible_occupations": [],
+    "official_url": "https://www.pmuy.gov.in",
+    "source_ref": "data.gov.in / Ministry of Petroleum & Natural Gas",
+    "source_url": "https://www.pmuy.gov.in",
+    "benefits_summary": "Free LPG gas connection with financial subsidy of Rs 1,600, free first cylinder refill, and free cooking gas stove (hotplate).",
+    "verification_status": "verified",
+    "is_demonstration": false,
+    "is_active": true,
+    "last_verified_date": "2026-03-01",
+    "criteria": [
+      {
+        "criterion_type": "gender",
+        "profile_field": "gender",
+        "operator": "==",
+        "target_value": "female",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Applicant must be an adult female member of the poor household",
+        "failure_reason": "PMUY LPG gas connection is issued strictly in the name of an adult female family member"
+      },
+      {
+        "criterion_type": "age",
+        "profile_field": "age",
+        "operator": ">=",
+        "target_value": "18",
+        "is_mandatory": true,
+        "weight": 1.0,
+        "description": "Applicant must have attained 18 years of age",
+        "failure_reason": "Applicant is under 18 years of age"
+      },
+      {
+        "criterion_type": "income",
+        "profile_field": "annual_income",
+        "operator": "<=",
+        "target_value": "150000",
+        "is_mandatory": false,
+        "weight": 2.0,
+        "description": "Targeted toward BPL and low-income households with annual income under Rs 1,50,000",
+        "failure_reason": "Annual household income exceeds the threshold for free LPG welfare connection"
+      }
+    ],
+    "documents": [
+      {
+        "document_name": "Ration Card (showing applicant & family members)",
+        "description": "Proof of household composition issued by State Civil Supplies",
+        "is_mandatory": true,
+        "issuing_authority": "Department of Food & Civil Supplies"
+      },
+      {
+        "document_name": "Aadhaar Card of Female Applicant",
+        "description": "Identity and address proof",
+        "is_mandatory": true,
+        "issuing_authority": "UIDAI"
+      },
+      {
+        "document_name": "Bank Passbook with Active IFSC",
+        "description": "Account details for DBT subsidy credits",
+        "is_mandatory": true,
+        "issuing_authority": "Bank"
+      }
+    ]
+  },
+  {
+    "source_id": "GOI-RURAL-IGNOAPS-2026",
+    "scheme_name": "Indira Gandhi National Old Age Pension Scheme (IGNOAPS)",
+    "slug": "indira-gandhi-old-age-pension-official",
+    "description": "Non-contributory monthly pension scheme under the National Social Assistance Programme (NSAP) providing social security and economic dignity to elderly citizens living below the poverty line.",
+    "department": "Ministry of Rural Development (National Social Assistance Programme)",
+    "category": "Social Security & Pension",
+    "state_coverage": "All-India",
+    "min_age": 60,
+    "max_age": 120,
+    "min_income": 0,
+    "max_income": 120000,
+    "eligible_occupations": [],
+    "official_url": "https://nsap.nic.in",
+    "source_ref": "data.gov.in / NSAP Portal",
+    "source_url": "https://nsap.nic.in",
+    "benefits_summary": "Monthly pension of Rs 200/month (ages 60-79) and Rs 500/month (ages 80+), supplemented by state government contributions.",
+    "verification_status": "verified",
+    "is_demonstration": false,
+    "is_active": true,
+    "last_verified_date": "2026-03-05",
+    "criteria": [
+      {
+        "criterion_type": "age",
+        "profile_field": "age",
+        "operator": ">=",
+        "target_value": "60",
+        "is_mandatory": true,
+        "weight": 3.0,
+        "description": "Applicant must have completed at least 60 years of age",
+        "failure_reason": "Applicant is below the statutory retirement age of 60 years"
+      },
+      {
+        "criterion_type": "income",
+        "profile_field": "annual_income",
+        "operator": "<=",
+        "target_value": "120000",
+        "is_mandatory": true,
+        "weight": 2.5,
+        "description": "Must belong to a household living below the recognized poverty line (BPL)",
+        "failure_reason": "Annual household income exceeds the BPL social security pension limit of Rs 1,20,000"
+      }
+    ],
+    "documents": [
+      {
+        "document_name": "Age Proof Certificate (Voter ID / Birth Certificate / School Marksheet)",
+        "description": "Government document showing birth date or age 60+",
+        "is_mandatory": true,
+        "issuing_authority": "Election Commission / Health Dept / Municipal Authority"
+      },
+      {
+        "document_name": "BPL Card / Certified Income Verification",
+        "description": "Proof of living below the poverty line",
+        "is_mandatory": true,
+        "issuing_authority": "Revenue Department / Civil Supplies"
+      },
+      {
+        "document_name": "Post Office or Bank Passbook",
+        "description": "Designated savings account for monthly pension deposit",
+        "is_mandatory": true,
+        "issuing_authority": "India Post / Bank"
+      }
+    ]
+  }
+]

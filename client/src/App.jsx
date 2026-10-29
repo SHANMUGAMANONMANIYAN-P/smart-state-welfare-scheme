@@ -1,164 +1,147 @@
-// client/src/App.jsx
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { DemoSwitcher } from './components/DemoSwitcher';
-import { Navbar } from './components/Navbar';
-import { Footer } from './components/Footer';
-import { InteractiveQuizModal } from './components/InteractiveQuizModal';
-import { NotificationToast } from './components/NotificationToast';
+import { AuthProvider } from './context/AuthContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import AppLayout from './components/layout/AppLayout';
+import SchemeChatbot from './components/SchemeChatbot';
 
-// Pages
-import { LandingPage } from './pages/LandingPage';
+// Public Pages
+import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import OAuthCallbackPage from './pages/OAuthCallbackPage';
+import UnauthorizedPage from './pages/UnauthorizedPage';
+import NotFoundPage from './pages/NotFoundPage';
+
+// Citizen Pages (Inside AppLayout)
+import CitizenDashboardPage from './pages/CitizenDashboardPage';
 import ProfilePage from './pages/ProfilePage';
-import { OnboardingPage } from './pages/OnboardingPage';
-import { StudentDashboard } from './pages/StudentDashboard';
-import GrowthPage from './pages/GrowthPage';
-import LearningPathPage from './pages/LearningPathPage';
-import AssessmentPage from './pages/AssessmentPage';
-import GoalsPage from './pages/GoalsPage';
-import OpportunitiesPage from './pages/OpportunitiesPage';
-import { MentorPage } from './pages/MentorPage';
-import { FacultyDashboard } from './pages/FacultyDashboard';
-import AdminDashboardPage from './pages/AdminDashboardPage';
+import CheckEligibilityPage from './pages/CheckEligibilityPage';
+import RecommendedSchemesPage from './pages/RecommendedSchemesPage';
+import { ExploreSchemesPage } from './pages/ExploreSchemesPage';
+import { SavedSchemesPage } from './pages/SavedSchemesPage';
+import EvaluationHistoryPage from './pages/EvaluationHistoryPage';
+import NotificationsPage from './pages/NotificationsPage';
+import HelpPage from './pages/HelpPage';
+
+// Administrator Pages (Inside AppLayout)
+import AdminDashboardOverview from './pages/admin/AdminDashboardOverview';
+import AdminSchemesPage from './pages/admin/AdminSchemesPage';
+import AdminImportPage from './pages/admin/AdminImportPage';
+import AdminCriteriaPage from './pages/admin/AdminCriteriaPage';
+import AdminDocumentsPage from './pages/admin/AdminDocumentsPage';
+import AdminCitizensPage from './pages/admin/AdminCitizensPage';
+import AdminReportsPage from './pages/admin/AdminReportsPage';
+import AdminSettingsPage from './pages/admin/AdminSettingsPage';
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans antialiased selection:bg-emerald-200">
-      {/* 1-Click Demo Switcher Top Bar for Hackathon Presentation */}
-      <DemoSwitcher />
-
-      {/* Main Navbar */}
-      <Navbar />
-
-      {/* Main View Routes */}
-      <main className="flex-1">
+    <LanguageProvider>
+      <AuthProvider>
         <Routes>
-          {/* Public Routes */}
+          {/* Public Home & Authentication Entry Routes */}
           <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/auth" element={<Navigate to="/login" replace />} />
+          <Route path="/auth/callback" element={<OAuthCallbackPage />} />
+          <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
-          {/* Onboarding Flow for New Students */}
-          <Route
-            path="/onboarding"
-            element={
-              <ProtectedRoute allowedRoles={['STUDENT', 'ADMIN']}>
-                <OnboardingPage />
-              </ProtectedRoute>
-            }
-          />
+        {/* Authenticated Application with Left Sidebar & Top Navbar */}
+        <Route
+          element={
+            <ProtectedRoute allowedRoles={['citizen', 'admin']}>
+              <AppLayout />
+            </ProtectedRoute>
+          }
+        >
+          {/* Citizen Routes */}
+          <Route path="/dashboard" element={<CitizenDashboardPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/check-eligibility" element={<CheckEligibilityPage />} />
+          <Route path="/recommended" element={<RecommendedSchemesPage />} />
+          <Route path="/schemes" element={<ExploreSchemesPage />} />
+          <Route path="/saved-schemes" element={<SavedSchemesPage />} />
+          <Route path="/history" element={<EvaluationHistoryPage />} />
+          <Route path="/notifications" element={<NotificationsPage />} />
+          <Route path="/help" element={<HelpPage />} />
+          <Route path="/about" element={<HelpPage />} />
 
-          {/* Student Protected Routes */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute allowedRoles={['STUDENT', 'ADMIN']}>
-                <StudentDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/growth"
-            element={
-              <ProtectedRoute allowedRoles={['STUDENT', 'ADMIN']}>
-                <GrowthPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/learning-path"
-            element={
-              <ProtectedRoute allowedRoles={['STUDENT', 'ADMIN']}>
-                <LearningPathPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/assessment"
-            element={
-              <ProtectedRoute allowedRoles={['STUDENT', 'ADMIN']}>
-                <AssessmentPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/assessments"
-            element={
-              <ProtectedRoute allowedRoles={['STUDENT', 'ADMIN']}>
-                <AssessmentPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/goals"
-            element={
-              <ProtectedRoute allowedRoles={['STUDENT', 'ADMIN']}>
-                <GoalsPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/opportunities"
-            element={
-              <ProtectedRoute allowedRoles={['STUDENT', 'ADMIN']}>
-                <OpportunitiesPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/mentor"
-            element={
-              <ProtectedRoute allowedRoles={['STUDENT', 'ADMIN']}>
-                <MentorPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <ProfilePage />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Faculty Protected Routes */}
-          <Route
-            path="/faculty"
-            element={
-              <ProtectedRoute allowedRoles={['FACULTY', 'ADMIN']}>
-                <FacultyDashboard />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Admin Protected Routes */}
+          {/* Administrator Protected Routes (Role: admin only) */}
           <Route
             path="/admin"
             element={
-              <ProtectedRoute allowedRoles={['ADMIN']}>
-                <AdminDashboardPage />
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminDashboardOverview />
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/admin/schemes"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminSchemesPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/import"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminImportPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/criteria"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminCriteriaPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/documents"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminDocumentsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/citizens"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminCitizensPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/reports"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminReportsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/settings"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminSettingsPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
 
-          {/* Fallbacks */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </main>
+        {/* 404 Fallback */}
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
 
-      {/* Global Interactive Elements */}
-      <InteractiveQuizModal />
-      <NotificationToast />
-
-      {/* Footer */}
-      <Footer />
-    </div>
+      {/* Floating Scheme Assistant Chatbot across the application */}
+      <SchemeChatbot />
+    </AuthProvider>
+    </LanguageProvider>
   );
 }

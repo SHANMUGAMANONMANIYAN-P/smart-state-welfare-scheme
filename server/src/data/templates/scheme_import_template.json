@@ -1,0 +1,57 @@
+[
+  {
+    "source_id": "SAMPLE-JSON-SCHEME-001",
+    "scheme_name": "National Apprenticeship Promotion Scheme (NAPS)",
+    "slug": "national-apprenticeship-promotion-scheme-sample",
+    "description": "Scheme to promote apprenticeship training across formal commercial establishments by providing financial stipend sharing with employers.",
+    "department": "Ministry of Skill Development and Entrepreneurship",
+    "category": "Skill Development & Employment",
+    "state_coverage": "All-India",
+    "min_age": 16,
+    "max_age": 35,
+    "min_income": 0,
+    "max_income": 300000,
+    "eligible_occupations": ["Student", "Job Seeker", "Apprentice"],
+    "benefits_summary": "Stipend support of 25% of prescribed stipend up to Rs 1,500 per month per apprentice directly to candidates.",
+    "official_url": "https://www.apprenticeshipindia.gov.in",
+    "source_ref": "data.gov.in / MSDE Portal",
+    "source_url": "https://www.apprenticeshipindia.gov.in",
+    "last_verified_date": "2026-03-01",
+    "criteria": [
+      {
+        "criterion_type": "age",
+        "profile_field": "age",
+        "operator": "between",
+        "target_value": "[16, 35]",
+        "is_mandatory": true,
+        "weight": 2.0,
+        "description": "Candidate must be between 16 and 35 years of age",
+        "failure_reason": "Age is outside apprentice qualification range"
+      },
+      {
+        "criterion_type": "education_level",
+        "profile_field": "education_level",
+        "operator": "in",
+        "target_value": "[\"secondary\", \"higher_secondary\", \"graduate\"]",
+        "is_mandatory": false,
+        "weight": 1.5,
+        "description": "Completed minimum Class 10 or secondary schooling",
+        "failure_reason": "Minimum secondary educational requirement not met"
+      }
+    ],
+    "documents": [
+      {
+        "document_name": "Class 10 / ITI Passing Marksheet",
+        "description": "Proof of educational attainment",
+        "is_mandatory": true,
+        "issuing_authority": "School Board / NCVT"
+      },
+      {
+        "document_name": "Aadhaar Card",
+        "description": "Identity and DOB verification",
+        "is_mandatory": true,
+        "issuing_authority": "UIDAI"
+      }
+    ]
+  }
+]

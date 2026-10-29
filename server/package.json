@@ -1,22 +1,26 @@
 {
-  "name": "growthmind-server",
+  "name": "welfare-eligibility-server",
   "version": "1.0.0",
-  "description": "Backend server for GrowthMind – AI Student Growth & Learning Mentor",
+  "description": "Backend server for Smart Welfare Scheme Eligibility Prediction Engine",
   "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "test": "node tests/runAllTests.js",
+    "db:init": "node src/scripts/initDb.js",
+    "admin:create": "node src/scripts/createAdmin.js"
   },
   "dependencies": {
-    "@google/genai": "^2.27.0",
     "bcryptjs": "^3.0.2",
     "better-sqlite3": "^13.0.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "growthmind-root": "file:..",
+    "express-rate-limit": "^8.7.1",
+    "google-auth-library": "^11.3.0",
     "jsonwebtoken": "^9.0.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "mysql2": "^3.24.5"
   }
 }
