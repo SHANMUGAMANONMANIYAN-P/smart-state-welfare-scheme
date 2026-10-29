@@ -250,9 +250,9 @@ docker run -p 5000:5000 smart-state-welfare-scheme
 
 ### Option 2: Render / Railway / Ubuntu VPS
 1. Connect repository `https://github.com/SHANMUGAMANONMANIYAN-P/smart-state-welfare-scheme`
-2. **Build Command:** `npm run install:all && npm run build`
+2. **Build Command:** `npm run build` (or `npm run render-build`)
 3. **Start Command:** `npm start`
-4. **Environment Variables:** Set `NODE_ENV=production` and `PORT=5000`.
+4. **Environment Variables:** Set `PORT=5000` (and optionally `JWT_SECRET`). Note: The root `build` script automatically installs server and client dependencies with `--include=dev` before compiling the Vite bundle.
 
 ---
 

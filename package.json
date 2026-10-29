@@ -4,8 +4,10 @@
   "private": true,
   "description": "Smart Welfare Scheme Eligibility Prediction Engine - Full Stack Public Guidance Platform",
   "scripts": {
-    "build": "npm --prefix client run build",
-    "install:all": "npm --prefix server install && npm --prefix client install",
+    "build": "cd server && npm install && cd ../client && npm install --include=dev && npm run build",
+    "install:all": "cd server && npm install && cd ../client && npm install --include=dev",
+    "postinstall": "cd server && npm install && cd ../client && npm install --include=dev",
+    "render-build": "cd server && npm install && cd ../client && npm install --include=dev && npm run build",
     "start": "node server/server.js",
     "server": "npm --prefix server start",
     "server:dev": "npm --prefix server run dev",
